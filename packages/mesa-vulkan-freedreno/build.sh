@@ -9,4 +9,4 @@ GIT_URL=https://gitlab.freedesktop.org/mesa/mesa
 GIT_COMMIT=61593e9c549e6f497fd7344aa353663e10354058
 LDFLAGS="-L$PREFIX/lib -landroid-shmem"
 CPPFLAGS="-D__USE_GNU"
-MESON_ARGS="-Dgallium-drivers= -Dvulkan-drivers=freedreno -Dfreedreno-kmds=msm,kgsl -Dglvnd=disabled -Dplatforms=x11 -Dxmlconfig=disabled -Dllvm=disabled -Dopengl=false -Degl=disabled -Dzstd=enabled"
+MESON_ARGS="-Dbuildtype=release -Db_ndebug=true -Dgallium-drivers= -Dvulkan-drivers=freedreno -Dfreedreno-kmds=msm,kgsl -Dglvnd=disabled -Dplatforms=x11 -Dxmlconfig=disabled -Dllvm=disabled -Dopengl=false -Degl=disabled -Dzstd=enabled"
