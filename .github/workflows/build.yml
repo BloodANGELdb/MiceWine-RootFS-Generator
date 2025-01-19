@@ -10,10 +10,10 @@ jobs:
 
     steps:
 
-    - name: Clone repository
-      uses: actions/checkout@v4
-      with:
-        submodules: recursive
+    - name: "Clone Repository"
+      run: |
+        git clone https://github.com/BloodANGELdb/MiceWine-RootFS-Generator
+
         
     - name: "Environment Preparation"
       run: |
