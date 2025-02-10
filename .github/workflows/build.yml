@@ -74,15 +74,20 @@ jobs:
       run: |
         echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
-    - name: "Create Release"
-      uses: softprops/action-gh-release@v2
-      with:
-        name: "MiceWine RootFS (${{ env.SHORT_SHA }})"
-        tag_name: ${{ env.SHORT_SHA }}
-        prerelease: true
-        files: |
-            /home/runner/MiceWine-RootFS-aarch64.rat
-            /home/runner/MiceWine-RootFS-aarch64-Logs.zip
-            /home/runner/MiceWine-Packages.zip
-            /home/runner/MiceWine-RootFS-x86_64.rat
+    - name: "Get Short SHA"  
+      run: |  
+        cd MiceWine-RootFS-Generator  
+        echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV  
+  
+    - name: "Create Release"  
+      uses: softprops/action-gh-release@v2  
+      with:  
+        name: "MiceWine RootFS (${{ env.SHORT_SHA }})"  
+        tag_name: ${{ env.SHORT_SHA }}  
+        prerelease: true  
+        files: |  
+            /home/runner/MiceWine-RootFS-aarch64.rat  
+            /home/runner/MiceWine-RootFS-aarch64-Logs.zip  
+            /home/runner/MiceWine-Packages.zip  
+            /home/runner/MiceWine-RootFS-x86_64.rat  
             /home/runner/MiceWine-RootFS-x86_64-Logs.zip
