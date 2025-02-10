@@ -70,10 +70,6 @@ jobs:
         ./create-rootfs.sh aarch64
         mv "MiceWine-RootFS-($(git rev-parse --short HEAD))-aarch64.rat" /home/runner/MiceWine-RootFS-aarch64.rat
 
-    - name: "Get Short SHA"
-      run: |
-        echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
     - name: "Get Short SHA"  
       run: |  
         cd MiceWine-RootFS-Generator  
