@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: "Clone Repository"
       run: |
-        git clone https://github.com/KreitinnSoftware/MiceWine-RootFS-Generator
+        git clone https://github.com/${{ github.repository }}.git
 
     - name: "Environment Preparation"
       run: |
@@ -30,7 +30,8 @@ jobs:
     - name: "Download Latest Release Rat Packages"
       run: |
         cd MiceWine-RootFS-Generator
-        curl -LO# https://github.com/KreitinnSoftware/MiceWine-RootFS-Generator/releases/download/$(curl -s https://api.github.com/repos/KreitinnSoftware/MiceWine-RootFS-Generator/releases | grep tag_name -m 1 | cut -d ":" -f 2 | sed "s/\"//g" | sed "s/,//g" | sed "s/ //g")/MiceWine-Packages.zip || true
+        LATEST_TAG=$(curl -s ${{ github.api_url }}/repos/${{ github.repository }}/releases | grep tag_name -m 1 | cut -d ":" -f 2 | sed "s/\"//g" | sed "s/,//g" | sed "s/ //g")
+        curl -LO# https://github.com/${{ github.repository }}/releases/download/${LATEST_TAG}/MiceWine-Packages.zip || true
         unzip -o MiceWine-Packages.zip -d built-pkgs || true
 
     - name: "Start Building (x86_64)"
@@ -60,10 +61,8 @@ jobs:
 
     - name: "Save All Rat Packages (for next build be faster)"
       run: |
-        cd MiceWine-RootFS-Generator
-        cd built-pkgs
+        cd MiceWine-RootFS-Generator/built-pkgs
         7z a /home/runner/MiceWine-Packages.zip
-        cd ..
 
     - name: "Create RootFS File (aarch64)"
       run: |
@@ -73,7 +72,6 @@ jobs:
 
     - name: "Get Short SHA"
       run: |
-        cd MiceWine-RootFS-Generator
         echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
     - name: "Create Release"
@@ -88,4 +86,3 @@ jobs:
             /home/runner/MiceWine-Packages.zip
             /home/runner/MiceWine-RootFS-x86_64.rat
             /home/runner/MiceWine-RootFS-x86_64-Logs.zip
-
